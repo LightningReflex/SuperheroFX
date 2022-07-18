@@ -1,6 +1,7 @@
 <h1 align="center" id="title">SuperheroFX</h1>
 
 <p id="description">Paper plugin which will allow you to hit entities and display cool "Hologram" texts around it.</p>
+<p>Current State: Just summons an armor stand with nbt at the hit entity and kills it.</p>
 
 <p align="center"><img src="https://img.shields.io/discord/992429435687018588?label=Discord" alt="shields"> <img src="https://img.shields.io/github/license/LightningReflex/Rerouted" alt="shields"></p>
 <p>&nbsp;</p>
