@@ -1,0 +1,9 @@
+name: SuperheroFX
+version: '${project.version}'
+main: me.lightningreflex.superherofx.SuperheroFX
+api-version: 1.18
+prefix: SuperheroFX
+load: STARTUP
+authors: [ LightningReflex ]
+description: Display SuperheroFX-ish particles around entities you damage.
+website: https://discord.gg/C6RQMtXXcV
