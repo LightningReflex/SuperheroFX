@@ -14,15 +14,16 @@ public class Render {
 	public static void FX(Location location) {
 		Random r = new Random();
 		List<ArmorStand> activeFX = new ArrayList<>();
+		Location modifiedLocation = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
 		for (int i = 0; i < 3; ++i) {
 			double randomX = 0;
 			double randomY = 0;
 			double randomZ = 0;
-			boolean withinRange = false;
-
-			Location modifiedLocation = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
+			boolean withinRange;
 
 			for (int ii = 0; ii < 100; ++ii) {
+				withinRange = false;
+				modifiedLocation = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
 				while (!(randomX < 0.4 && randomX > -0.4) || (randomX == 0)) {
 					randomX = ((r.nextInt(120) + 1) - 60) / 100D;
 				}
@@ -39,22 +40,17 @@ public class Render {
 					break;
 				}
 
-				System.out.println(activeFX.size());
-				for (int iii = 0; iii < activeFX.size(); ++iii) {
-					Double temp = activeFX.get(iii).getLocation().distance(modifiedLocation.add(randomX, randomY, randomZ));
-					System.out.println(temp);
-					if (temp > 0.6) {
-						System.out.println("breaking, distance good");
-					} else {
-						System.out.println("not breaking, too close");
+				for (ArmorStand fx : activeFX) {
+					if (fx.getLocation().distance(modifiedLocation.add(randomX, randomY, randomZ)) < 0.45) {
 						withinRange = true;
 					}
 				}
-				if (withinRange) {
-					modifiedLocation = new Location(location.getWorld(), location.getX(), location.getY(), location.getZ());
-				} else {
+				if (!withinRange) {
 					break;
 				}
+				randomX = 0;
+				randomY = 0;
+				randomZ = 0;
 			}
 
 
@@ -64,12 +60,12 @@ public class Render {
 				entity.setMarker(true);
 				entity.setCanMove(false);
 				entity.setCustomNameVisible(true);
-				entity.customName(Component.text("Hi Wrld!"));
+				entity.customName(Component.text("Kapow!"));
 			});
 
 			activeFX.add(armorStand);
 
-			Bukkit.getScheduler().runTaskLater(SuperheroFX.getInstance(), () -> {
+			Bukkit.getScheduler().runTaskLater(SuperheroFX.getPlugin(), () -> {
 				armorStand.remove();
 				activeFX.remove(armorStand);
 			}, 20L);
